@@ -9,5 +9,8 @@ dotenv.config({
 module.exports = {
     NODE_ENV : process.env.NODE_ENV,
     HOST : process.env.HOST,
+    PASS : process.env.PASS,
+    DATABASE : process.env.DATABASE,
+    USER : process.env.USER,
     PORT : process.env.PORT
 }
