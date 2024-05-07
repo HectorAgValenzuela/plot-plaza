@@ -6,7 +6,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "set NODE_ENV=DEV&& nodemon server.js",
-    "prod": "set NODE_ENV=PROD&& nodemon app.js"
+    "prod": "set NODE_ENV=PROD&& nodemon server.js"
   },
   "author": "",
   "license": "ISC",
