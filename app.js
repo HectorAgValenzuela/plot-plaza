@@ -1,29 +1,20 @@
 const express = require("express");
-const mysql = require("mysql")
-
-const { HOST, USER, PASS, DATABASE, PORT } = require("./config.js");
-
 const app = express();
+// body-parser allow is a middleware that allow us to analyze HTTP requests
+const bodyParser = require('body-parser');
+const cors = require('cors');
 
-const db = mysql.createConnection( {
-    host: HOST,
-    user: USER,
-    password: PASS,
-    database: DATABASE
-} );
+// extended: false means that we analyze data from a string or matrix, not an object
+app.use(bodyParser.urlencoded({extended: false}));
 
-db.connect( (error) => {
-    if( error ) {
-        console.log(error);
-    } else {
-        console.log("Database Connected")
-    }
-} );
+// add the functionality to analyze JSON bodies
+app.use(bodyParser.json());
 
-app.get("/", (req, res) => {
-    res.send("<h1>Hello World!</h1>");
-});
+app.use(cors());
 
-app.listen(PORT, () => {
-    console.log(`Server started at port ${PORT}`);
-});
+// ROUTES
+
+const userRoute = require('./api/routes/user');
+app.use('/user', userRoute);
+
+module.exports = app;
