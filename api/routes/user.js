@@ -13,4 +13,20 @@ router.get('/', (req, res) => {
     });
 });
 
+// the singin POST method
+router.post('/singin', (req, res) => {
+    const { username, password } = req.body;
+
+    dbConnection.query('SELECT username, role FROM USER WHERE username=? AND password=?',
+        [username, password],
+        (err, rows, fields) => {
+            if(!err) {
+                console.log(rows);
+            } else {
+                console.log(err);
+            }
+        }
+    )
+})
+
 module.exports = router;
