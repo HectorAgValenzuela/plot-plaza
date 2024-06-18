@@ -1,6 +1,6 @@
 const express = require("express");
 const app = express();
-// body-parser allow is a middleware that allow us to analyze HTTP requests
+// body-parser middleware that allow us to analyze HTTP requests
 const bodyParser = require('body-parser');
 const cors = require('cors');
 
@@ -14,6 +14,7 @@ app.use(cors());
 
 // ROUTES
 
+// Users Route
 const userRoute = require('./api/routes/user');
 app.use('/user', userRoute);
 
