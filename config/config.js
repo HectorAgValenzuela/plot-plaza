@@ -12,5 +12,6 @@ module.exports = {
     PASS : process.env.PASS,
     DATABASE : process.env.DATABASE,
     USER : process.env.USER,
-    PORT : process.env.PORT
+    PORT : process.env.PORT,
+    ACCESS_TOKEN : process.env.ACCESS_TOKEN
 }

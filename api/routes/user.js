@@ -1,3 +1,6 @@
+const { ACCESS_TOKEN } = require("../../config/config");
+
+const jwt = require('jsonwebtoken');
 const express = require('express');
 const router = express.Router();
 
@@ -37,6 +40,33 @@ router.post('/signup', (req, res)  => {
                     }
                     return res.status(200).json({ message: "Account Successfully created!" });
                 });     
+        });
+});
+
+router.post('/login', (req, res) => {
+    const user = req.body;
+
+    let query = "SELECT email, password, role FROM user WHERE email=?"
+    dbConnection.query(query, [user.email], 
+        (err, results) => {
+            // We check if there is any error.
+            if( err ) {
+                return res.status(500).json(err);
+            } 
+            // Checking if there are results in the query and the password is correct
+            if( results.length === 0 || results[0].password !== user.password ) {
+                return res.status(401).json({ message: "Incorrect username or password" });
+            }
+
+            // We found the user and the password is correct, then we create a token
+            try {
+                const response = { email: results[0].email, role: results[0].role };
+                const accessToken = jwt.sign( response, ACCESS_TOKEN, { expiresIn: '8h' } );
+                console.log( accessToken );
+                return res.status(200).json({ token: accessToken });
+            } catch (e) {
+                return res.status(500).json({ e });
+            }
         });
 });
 
